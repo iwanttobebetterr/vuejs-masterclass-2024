@@ -1,29 +1,25 @@
 <script setup lang="ts">
-import { supabase } from '@/lib/supabaseClient'
-import { ref } from 'vue';
-import type {Tables} from '../../../database/types'
+import usePageStore from '@/stores/page'
+import {
+  tasksWithProjectsQuery,
+  type TaskWithProjects,
+} from '@/utils/supabase-queries'
+import { columns } from '@/utils/table-columns/task-columns'
 
-const tasks = ref<Tables<'tasks'>[] | null>(null);
+usePageStore().pageData.title = 'Tasks'
 
-(async () => {
-  const { data, error } = await supabase.from('tasks').select()
+const tasks = ref<TaskWithProjects | null>(null)
+const getTasks = async () => {
+  const { data, error, status } = await tasksWithProjectsQuery
 
-  if (error) {
-    console.error(error)
-  }
+  if (error) useErrorStore().setError({ error, errorCode: status })
 
   tasks.value = data
-})()
+}
+
+await getTasks()
 </script>
 
 <template>
-  <div>
-    <h1>Tasks page</h1>
-    <RouterLink to="/">Home</RouterLink>
-    <ul>
-      <li v-for="task in tasks" :key="task.id">
-        <RouterLink :to="`/tasks/${task.id}`">{{ task.name }}</RouterLink>
-      </li>
-    </ul>
-  </div>
+  <DataTable v-if="tasks" :columns="columns" :data="tasks" />
 </template>

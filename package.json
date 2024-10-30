@@ -17,10 +17,12 @@
     "supabase:types": "npx supabase gen types --lang=typescript --project-id qrmwtiuvcxryqeckuvmb --schema public > database/types.ts",
     "db:migrate:new": "supabase migration new",
     "db:reset": "supabase db reset --linked",
-    "db:seed": "node --env-file=.env database/seed.js"
+    "db:seed": "node --env-file=.env database/seed.js",
+    "db:refresh": "supabase db reset --linked && node --env-file=.env database/seed.js && npx supabase gen types --lang=typescript --project-id qrmwtiuvcxryqeckuvmb --schema public > database/types.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.43.4",
+    "@tanstack/vue-table": "^8.20.5",
     "@vueuse/core": "^11.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -49,6 +51,8 @@
     "supabase": "^1.204.3",
     "tailwindcss": "^3.4.14",
     "typescript": "~5.5.4",
+    "unplugin-auto-import": "^0.18.3",
+    "unplugin-vue-components": "^0.27.4",
     "unplugin-vue-router": "^0.10.8",
     "vite": "^5.4.8",
     "vue-tsc": "^2.1.6"

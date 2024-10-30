@@ -1,8 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import usePageStore from '@/stores/page';
+
+usePageStore().pageData.title = 'Home';
+</script>
 
 <template>
   <div>
-    <h1>Home</h1>
     <RouterLink :to="{ name: '/projects/' }">Projects</RouterLink>
   </div>
 </template>
