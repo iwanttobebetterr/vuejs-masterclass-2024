@@ -1,11 +1,11 @@
 <script setup lang="ts">
 const props = defineProps<{
-  message: string,
-  customCode: number,
-  hint: string | null,
-  details: string,
-  isCustomError: boolean,
-  statusCode: number,
+  message: string
+  customCode: number
+  hint: string | null
+  details: string
+  isCustomError: boolean
+  statusCode: number
 }>()
 
 const error = ref({
@@ -22,7 +22,6 @@ if (props.statusCode === 406) {
   error.value.msg = 'Sorry, this page is not available.'
   error.value.code = 404
 }
-
 </script>
 
 <template>

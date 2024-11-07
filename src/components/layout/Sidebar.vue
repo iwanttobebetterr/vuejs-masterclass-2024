@@ -8,8 +8,19 @@ const links = [
 const accountLinks = [
   { title: 'Profile', icon: 'lucide:user', to: '/profile' },
   { title: 'Settings', icon: 'lucide:settings', to: '/settings' },
-  { title: 'Sign out', icon: 'lucide:log-out', to: '/signout' },
+  { title: 'Sign out', icon: 'lucide:log-out' },
 ]
+
+const router = useRouter()
+
+const executelinkClicked = async (linkTitle: string) => {
+  if (linkTitle === 'Sign out') {
+    const { logout } = await import('@/utils/supabase-auth')
+    if (await logout()) {
+      router.push('/login')
+    }
+  }
+}
 </script>
 
 <template>
@@ -34,7 +45,7 @@ const accountLinks = [
       </div>
 
       <div class="border-y text-center bg-background py-3">
-        <SidebarLinks :links="accountLinks" />
+        <SidebarLinks :links="accountLinks" @linkClicked="executelinkClicked" />
       </div>
     </nav>
   </aside>

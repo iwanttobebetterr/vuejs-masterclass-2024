@@ -1,6 +1,6 @@
-import type { ColumnDef } from "@tanstack/vue-table"
-import { RouterLink } from "vue-router"
-import type { TaskWithProjects } from "../supabase-queries"
+import type { ColumnDef } from '@tanstack/vue-table'
+import { RouterLink } from 'vue-router'
+import type { TaskWithProjects } from '../supabase-queries'
 
 export const columns: ColumnDef<TaskWithProjects[0]>[] = [
   {
@@ -11,7 +11,8 @@ export const columns: ColumnDef<TaskWithProjects[0]>[] = [
         RouterLink,
         {
           to: `/tasks/${row.original.id}`,
-          class: 'text-left text-blue-400 hover:text-blue-700 hover:bg-muted block w-full',
+          class:
+            'text-left text-blue-400 hover:text-blue-700 hover:bg-muted block w-full',
         },
         () => row.getValue('name'),
       )
@@ -21,22 +22,14 @@ export const columns: ColumnDef<TaskWithProjects[0]>[] = [
     accessorKey: 'status',
     header: () => h('div', { class: 'text-left' }, 'Status'),
     cell: ({ row }) => {
-      return h(
-        'div',
-        { class: 'text-left ' },
-        row.getValue('status'),
-      )
+      return h('div', { class: 'text-left ' }, row.getValue('status'))
     },
   },
   {
     accessorKey: 'due_date',
     header: () => h('div', { class: 'text-left' }, 'Due Date'),
     cell: ({ row }) => {
-      return h(
-        'div',
-        { class: 'text-left ' },
-        row.getValue('due_date'),
-      )
+      return h('div', { class: 'text-left ' }, row.getValue('due_date'))
     },
   },
   {
@@ -48,7 +41,8 @@ export const columns: ColumnDef<TaskWithProjects[0]>[] = [
             RouterLink,
             {
               to: `/projects/${row.original.projects.slug}`,
-              class: 'text-left text-blue-400 hover:text-blue-700 hover:bg-muted block w-full',
+              class:
+                'text-left text-blue-400 hover:text-blue-700 hover:bg-muted block w-full',
             },
             () => row.original.projects?.name,
           )

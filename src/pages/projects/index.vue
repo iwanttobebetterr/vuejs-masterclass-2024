@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import usePageStore from '@/stores/page'
 import { projectsQuery, type Projects } from '@/utils/supabase-queries'
-import { columns } from '@/utils/table-columns/project-columns';
+import { columns } from '@/utils/table-columns/project-columns'
 
 usePageStore().pageData.title = 'Projects'
 
@@ -15,8 +15,6 @@ const getProjects = async () => {
 }
 
 await getProjects()
-
-
 </script>
 
 <template>

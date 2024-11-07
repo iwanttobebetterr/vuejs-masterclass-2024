@@ -1,13 +1,21 @@
 <script setup lang="ts">
-const errorStore = useErrorStore()
+import GuestLayout from './components/layout/main/GuestLayout.vue';
+import MainLayout from './components/layout/main/MainLayout.vue';
 
-onErrorCaptured((error) => {
+const errorStore = useErrorStore()
+const authStore = useAuthStore()
+
+onErrorCaptured(error => {
   errorStore.setError({ error })
+})
+
+onMounted(async () => {
+  authStore.trackAuthChanges()
 })
 </script>
 
 <template>
-  <MainLayout>
+  <Component :is="authStore.user ? MainLayout : GuestLayout">
     <AppErrorPage v-if="errorStore.activeError" />
 
     <RouterView v-else v-slot="{ Component, route }">
@@ -19,5 +27,5 @@ onErrorCaptured((error) => {
         </template>
       </Suspense>
     </RouterView>
-  </MainLayout>
+  </Component>
 </template>

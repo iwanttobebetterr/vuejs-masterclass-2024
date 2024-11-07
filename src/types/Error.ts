@@ -1,4 +1,4 @@
-import type { PostgrestError } from "@supabase/supabase-js";
+import type { PostgrestError } from '@supabase/supabase-js'
 
 export interface CustomAppError extends Error {
   customCode?: number
