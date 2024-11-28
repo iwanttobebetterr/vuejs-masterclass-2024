@@ -3,8 +3,8 @@ import usePageStore from '@/stores/page'
 import {
   tasksWithProjectsQuery,
   type TaskWithProjects,
-} from '@/utils/supabase-queries'
-import { columns } from '@/utils/table-columns/task-columns'
+} from '@/utils/supabaseQueries'
+import { columns } from '@/utils/table-columns/taskColumns'
 
 usePageStore().pageData.title = 'Tasks'
 

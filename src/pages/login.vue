@@ -1,29 +1,45 @@
 <script setup lang="ts">
-import { login } from '@/utils/supabase-auth'
-const router = useRouter()
+import type { LoginForm } from '@/types/AuthForm'
+import { login } from '@/utils/supabaseAuth'
+import { watchDebounced } from '@vueuse/core'
+
 const formData = ref({
   email: '',
   password: '',
 })
 
-const signin = async function () {
-  if (await login(formData.value)) {
-    router.push('/')
-  }
+const { serverError, handleServerError, realtimeErrors, handleLoginForm } =
+  useFormErrors<LoginForm>()
+
+watchDebounced(
+  formData,
+  () => {
+    handleLoginForm(formData.value)
+  },
+  { debounce: 300, deep: true },
+)
+
+const router = useRouter()
+
+const signin = async () => {
+  const { error } = await login(formData.value)
+  if (!error) return router.push('/')
+
+  handleServerError(error)
 }
 </script>
 
 <template>
   <div
-    class="mx-auto flex w-full justify-center items-center p-10 text-center min-h-[90vh]"
+    class="mx-auto -mt-20 flex min-h-[90vh] w-full items-center justify-center p-10 text-center"
   >
-    <Card class="max-w-sm w-full mx-auto">
+    <Card class="mx-auto w-full max-w-sm">
       <CardHeader>
         <CardTitle class="text-2xl"> Login </CardTitle>
         <CardDescription> Login to your account </CardDescription>
       </CardHeader>
       <CardContent>
-        <div class="flex flex-col gap-4 mb-4 justify-center items-center">
+        <div class="mb-4 flex flex-col items-center justify-center gap-4">
           <Button variant="outline" class="w-full">
             Register with Google
           </Button>
@@ -38,12 +54,25 @@ const signin = async function () {
               placeholder="johndoe19@example.com"
               required
               v-model="formData.email"
+              :class="{ 'border-red-500': serverError }"
             />
+            <ul
+              class="text-left text-sm text-red-500"
+              v-if="realtimeErrors?.email?.length"
+            >
+              <li
+                v-for="error in realtimeErrors.email"
+                :key="error"
+                class="list-disc"
+              >
+                {{ error }}
+              </li>
+            </ul>
           </div>
           <div class="grid gap-2">
             <div class="flex items-center">
               <Label id="password">Password</Label>
-              <a href="#" class="inline-block ml-auto text-xs underline">
+              <a href="#" class="ml-auto inline-block text-xs underline">
                 Forgot your password?
               </a>
             </div>
@@ -53,11 +82,27 @@ const signin = async function () {
               autocomplete
               required
               v-model="formData.password"
+              :class="{ 'border-red-500': serverError }"
             />
+            <ul
+              class="text-left text-sm text-red-500"
+              v-if="realtimeErrors?.password?.length"
+            >
+              <li
+                v-for="error in realtimeErrors.password"
+                :key="error"
+                class="list-disc"
+              >
+                {{ error }}
+              </li>
+            </ul>
           </div>
+          <ul class="text-left text-sm text-red-500" v-if="serverError">
+            <li class="list-disc">{{ serverError }}</li>
+          </ul>
           <Button type="submit" class="w-full"> Login </Button>
         </form>
-        <div class="mt-4 text-sm text-center">
+        <div class="mt-4 text-center text-sm">
           Don't have an account?
           <RouterLink to="/register" class="underline"> Register </RouterLink>
         </div>

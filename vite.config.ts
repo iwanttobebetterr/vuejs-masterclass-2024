@@ -27,12 +27,17 @@ export default defineConfig({
         'vue',
         VueRouterAutoImports,
         {
-          'pinia': ['defineStore', 'storeToRefs', 'acceptHMRUpdate', 'createPinia'],
-        }
+          pinia: [
+            'defineStore',
+            'storeToRefs',
+            'acceptHMRUpdate',
+            'createPinia',
+          ],
+        },
       ],
       dts: true,
       viteOptimizeDeps: true,
-      dirs: ['src/stores'],
+      dirs: ['src/stores/**', 'src/composables/**'],
     }),
     VueRouter(),
     vue({
@@ -42,7 +47,7 @@ export default defineConfig({
         },
       },
     }),
-    Components({})
+    Components({}),
   ],
   resolve: {
     alias: {

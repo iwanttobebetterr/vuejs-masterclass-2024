@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import GuestLayout from './components/layout/main/GuestLayout.vue';
-import MainLayout from './components/layout/main/MainLayout.vue';
+import GuestLayout from './components/layout/main/GuestLayout.vue'
+import MainLayout from './components/layout/main/MainLayout.vue'
 
 const errorStore = useErrorStore()
 const authStore = useAuthStore()
@@ -15,7 +15,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Component :is="authStore.user ? MainLayout : GuestLayout">
+  <MainLayout v-if="authStore.user">
     <AppErrorPage v-if="errorStore.activeError" />
 
     <RouterView v-else v-slot="{ Component, route }">
@@ -27,5 +27,19 @@ onMounted(async () => {
         </template>
       </Suspense>
     </RouterView>
-  </Component>
+  </MainLayout>
+
+  <GuestLayout v-else>
+    <AppErrorPage v-if="errorStore.activeError" />
+
+    <RouterView v-else v-slot="{ Component, route }">
+      <Suspense v-if="Component" :timeout="0">
+        <Component :is="Component" :key="route.name"></Component>
+
+        <template #fallback>
+          <span>Loading ..</span>
+        </template>
+      </Suspense>
+    </RouterView>
+  </GuestLayout>
 </template>

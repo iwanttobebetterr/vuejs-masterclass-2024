@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { register } from '@/utils/supabase-auth'
+import { register } from '@/utils/supabaseAuth'
 
 const formData = ref({
   username: '',
@@ -23,15 +23,15 @@ const signup = async function () {
 
 <template>
   <div
-    class="mx-auto w-full flex justify-center items-center p-10 text-center -mt-10 min-h-[90vh] h-full"
+    class="mx-auto -mt-10 flex h-full min-h-[90vh] w-full items-center justify-center p-10 text-center"
   >
-    <Card class="max-w-sm w-full mx-auto h-full">
+    <Card class="mx-auto h-full w-full max-w-sm">
       <CardHeader>
         <CardTitle class="text-2xl"> Register </CardTitle>
         <CardDescription> Create a new account </CardDescription>
       </CardHeader>
       <CardContent>
-        <div class="flex flex-col gap-4 mb-4 justify-center items-center">
+        <div class="mb-4 flex flex-col items-center justify-center gap-4">
           <Button variant="outline" class="w-full">
             Register with Google
           </Button>
@@ -48,7 +48,7 @@ const signup = async function () {
               v-model="formData.username"
             />
           </div>
-          <div class="flex flex-col sm:flex-row justify-between gap-4">
+          <div class="flex flex-col justify-between gap-4 sm:flex-row">
             <div class="grid gap-2">
               <Label id="first_name" class="text-left">First Name</Label>
               <Input
@@ -109,7 +109,7 @@ const signup = async function () {
           <Button type="submit" class="w-full"> Register </Button>
           <!-- <Button variant="outline" class="w-full"> Login with Google </Button> -->
         </form>
-        <div class="mt-4 text-sm text-center">
+        <div class="mt-4 text-center text-sm">
           Already have an account?
           <RouterLink to="/login" class="underline"> Login </RouterLink>
         </div>

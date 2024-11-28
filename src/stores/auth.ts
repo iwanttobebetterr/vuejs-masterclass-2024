@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabaseClient'
-import { profileQuery } from '@/utils/supabase-queries'
+import { profileQuery } from '@/utils/supabaseQueries'
 import type { Session, User } from '@supabase/supabase-js'
 import type { Tables } from 'database/types'
 

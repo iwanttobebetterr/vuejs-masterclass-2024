@@ -29,7 +29,7 @@ const triggerLinkClick = (linkTitle: string) => {
       exactActiveClass="text-primary bg-muted"
     >
       <iconify-icon :icon="link.icon"></iconify-icon>
-      <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
+      <span class="hidden text-nowrap lg:block">{{ link.title }}</span>
     </RouterLink>
 
     <div
@@ -38,13 +38,13 @@ const triggerLinkClick = (linkTitle: string) => {
       @click="triggerLinkClick(link.title)"
     >
       <iconify-icon :icon="link.icon"></iconify-icon>
-      <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
+      <span class="hidden text-nowrap lg:block">{{ link.title }}</span>
     </div>
   </template>
 </template>
 
 <style scoped>
 .nav-link {
-  @apply flex items-center gap-3 px-4 py-2 mx-2 transition-colors rounded-lg hover:text-primary justify-center lg:justify-normal text-muted-foreground;
+  @apply mx-2 flex items-center justify-center gap-3 rounded-lg px-4 py-2 text-muted-foreground transition-colors hover:text-primary lg:justify-normal;
 }
 </style>

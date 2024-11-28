@@ -6,7 +6,7 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async (to) => {
+router.beforeEach(async to => {
   const authStore = useAuthStore()
   await authStore.getSession()
   const isAuthPage = ['/login', '/register'].includes(to.path)

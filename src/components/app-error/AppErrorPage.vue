@@ -50,7 +50,7 @@ router.afterEach(() => {
 
 <style scoped>
 .error {
-  @apply mx-auto flex justify-center items-center flex-1 p-10 text-center -mt-20 min-h-[90vh];
+  @apply mx-auto -mt-20 flex min-h-[90vh] flex-1 items-center justify-center p-10 text-center;
 }
 
 :deep(.error__icon) {
@@ -58,7 +58,7 @@ router.afterEach(() => {
 }
 
 :deep(.error__code) {
-  @apply font-extrabold text-7xl text-secondary;
+  @apply text-7xl font-extrabold text-secondary;
 }
 
 :deep(.error__msg) {
@@ -66,7 +66,7 @@ router.afterEach(() => {
 }
 
 :deep(.error-footer) {
-  @apply flex flex-col items-center justify-center gap-5 mt-6 font-light;
+  @apply mt-6 flex flex-col items-center justify-center gap-5 font-light;
 }
 
 :deep(.error-footer__text) {
